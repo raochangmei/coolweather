@@ -10,6 +10,15 @@ public class County extends DataSupport {
     private int id;
     private String countyName;
     private int countyCode;
+    private int cityId;
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
 
     public int getCountyCode() {
         return countyCode;
