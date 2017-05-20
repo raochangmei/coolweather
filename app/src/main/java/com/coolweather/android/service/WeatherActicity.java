@@ -1,5 +1,6 @@
 package com.coolweather.android.service;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -156,13 +157,11 @@ public class WeatherActicity extends AppCompatActivity {
                 });
             }
 
-            private static final String TAG = "WeatherActicity";
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
                 final String responseText = response.body().string();
                 final Weather weather = Utility.handleWeatherResponse(responseText);
-                Log.e(TAG, "onResponse: ************" );
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -186,6 +185,8 @@ public class WeatherActicity extends AppCompatActivity {
      * 处理并展示weather实体类中的具体数据
      */
     private void showWeatherInfo(Weather weather) {
+        Intent intent = new Intent(this,AutoUpdateService.class);
+        startService(intent);
         String cityName = weather.basic.cityName;
         String updatetime = weather.basic.update.updateTime.split(" ")[1];
         String degree = weather.now.temperature + "℃";
@@ -218,5 +219,7 @@ public class WeatherActicity extends AppCompatActivity {
         car_wash_text.setText(carWash);
         sport_text.setText(sport);
         watherLayout.setVisibility(View.VISIBLE);
+
     }
+
 }
